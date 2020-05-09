@@ -7,6 +7,7 @@ const App = () => {
     console.log(res);
   }).catch((err) => console.log(err));
 
+  console.log(`${process.env.REACT_APP_WEATHER_APP_KEY}`);
   useState(() => {
 
   });

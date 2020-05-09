@@ -1,33 +1,37 @@
 import React, { useState } from 'react';
+import { Container, Row, Col } from "styled-bootstrap-grid";
 
-const App = () => {
-  fetch(`https://api.openweathermap.org/data/2.5/forecast?q=orlando&appid=${process.env.REACT_APP_WEATHER_APP_KEY}`).then(res => {
+const getWeather = (location) => {
+  fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${location}&appid=${process.env.REACT_APP_WEATHER_APP_KEY}`).then(res => {
     return res.json();
   }).then(function(res) {
     console.log(res);
   }).catch((err) => console.log(err));
+};
 
-  console.log(`${process.env.REACT_APP_WEATHER_APP_KEY}`);
-  useState(() => {
+const App = () => {
+  const [ location, setLocation ] = useState(null);
 
-  });
+  const onChange = (e) => {
+    setLocation(e.target.value);
+  };
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container>
+      <Row>
+        <Col col={12}>
+          <h1>Weather App</h1>
+          <form onSubmit={(e) => {
+            e.preventDefault();
+            getWeather(location);}
+          }>
+            Enter your location!
+              <input type="text" name="location" onChange={(e) => onChange(e)}/>
+            <button type="submit">submit</button>
+          </form>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 

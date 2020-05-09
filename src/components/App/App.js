@@ -1,12 +1,19 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
 
-function App() {
+const App = () => {
+  fetch(`https://api.openweathermap.org/data/2.5/forecast?q=orlando&appid=${process.env.REACT_APP_WEATHER_APP_KEY}`).then(res => {
+    return res.json();
+  }).then(function(res) {
+    console.log(res);
+  }).catch((err) => console.log(err));
+
+  useState(() => {
+
+  });
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
@@ -21,6 +28,6 @@ function App() {
       </header>
     </div>
   );
-}
+};
 
 export default App;
